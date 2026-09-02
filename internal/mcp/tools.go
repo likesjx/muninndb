@@ -296,6 +296,10 @@ func allToolDefinitions() []ToolDefinition {
 						"type":        "boolean",
 						"description": "When true, each result includes an annotations object with staleness, conflict, and supersession metadata. Default false. Independent of annotate: whenever a result belongs to a detected same-subject version cluster, annotations also carries an ADVISORY (never asserted) possibly_superseded_by/version_cluster/newest_of_cluster/cluster_size signal — a mechanical hint pointing an older cluster member at the newest, distinct from the authoritative superseded_by/current_version pair. Also independent of annotate: a memory under an UNRESOLVED declared contradicts link always carries annotations.unresolved_contradiction (naming the memory it disagrees with) and the response carries a top-level conflict block — its score has been demoted 10 percent below its earned value, so it must not be read as the answer without checking the annotation. Resolve it with muninn_evolve, muninn_forget(not_true_since=...), or muninn_link(relation=\"supersedes\").",
 					},
+					"self_knowledge": map[string]any{
+						"type":        "boolean",
+						"description": "When true, each result includes a self_knowledge block: stale (superseded by a newer fact), current_version (the fact to consult now), and contradicts_ids (IDs of OTHER results in this response that this one actually conflicts with — a value swap or polarity flip). The contradiction pass compares only the returned set. Default false.",
+					},
 					"caller": map[string]any{
 						"type":        "string",
 						"description": "Your ownership-lease identity (conventionally '{host}:{session}'). Memories checked out by a live lease owned by someone else are hidden; your own leased memories are returned normally. See muninn_claim.",
